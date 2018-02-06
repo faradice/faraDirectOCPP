@@ -18,14 +18,14 @@ import com.faradice.faranet.FaraJettyServer;
 /**
  * FaraOCPP Central server using SOAP protocol
  */
-public class FaraOccpCentralServer {
+public class DirectCentralServer {
 	public final static int defaultPort = 8085;
 	public final static String path = "/Fara_occp";
 	public final static String name = "/CentralSystemService/*";
 
 	public static void main(String[] args) throws Exception {
 		FaraJettyServer server = new FaraJettyServer(defaultPort, args);
-		server.addServlet(path, name, new OccpSystemService());
+		server.addServlet(path, name, new DirectCentralService());
 		System.out.println("Endpoint: http://" + FaraJettyServer.hostName() + ":" + defaultPort + path + name);
 		server.run();
 	}

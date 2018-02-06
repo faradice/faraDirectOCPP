@@ -1,9 +1,8 @@
 package com.faradice.ocpp.chargepoint.test;
 import com.faradice.faraUtil.FaraDates;
-import com.faradice.ocpp.OCPPChargepointAPI;
 import com.faradice.ocpp.OCPPContext;
 import com.faradice.ocpp.OCPPSession;
-import com.faradice.ocpp.chargepoint.direct.DirectOCPPChargePointAPI;
+import com.faradice.ocpp.central.DirectCentralAPI;
 import com.faradice.ocpp.entities.Authorize;
 import com.faradice.ocpp.entities.AuthorizeResponse;
 import com.faradice.ocpp.entities.BootNotificationResult;
@@ -16,7 +15,7 @@ import com.faradice.ocpp.entities.StopTransaction;
  *  https://docs.oracle.com/javase/tutorial/jaxb/intro/
  */
 public class UnitTest {
-	OCPPChargepointAPI chargePoint = new DirectOCPPChargePointAPI();
+	DirectCentralAPI chargePoint = new DirectCentralAPI();
 
 	public void testAuthorizeOutput()  {
 		String res = Authorize.call("04EA6A6AA13780");

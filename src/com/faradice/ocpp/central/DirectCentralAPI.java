@@ -1,6 +1,5 @@
-package com.faradice.ocpp.chargepoint.direct;
+package com.faradice.ocpp.central;
 
-import com.faradice.ocpp.OCPPChargepointAPI;
 import com.faradice.ocpp.entities.Authorize;
 import com.faradice.ocpp.entities.AuthorizeResponse;
 import com.faradice.ocpp.entities.BootNotification;
@@ -12,7 +11,7 @@ import com.faradice.ocpp.entities.StartTransactionResult;
 import com.faradice.ocpp.entities.StopTransaction;
 import com.faradice.ocpp.entities.StopTransactionResult;
 
-public class DirectOCPPChargePointAPI implements OCPPChargepointAPI {
+public class DirectCentralAPI {
 	public AuthorizeResponse authorize(String rfid) {
 		String result = Authorize.call(rfid);
 		return AuthorizeResponse.buildFromXML(result);

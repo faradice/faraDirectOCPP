@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.faradice.faraUtil.FaraFiles;
 import com.faradice.ocpp.entities.Authorize;
 
-public class OccpSystemService extends HttpServlet {
+public class DirectCentralService extends HttpServlet {
 
-	public OccpSystemService() {
+	public DirectCentralService() {
 	}
 
 	@Override

@@ -23,10 +23,8 @@ import com.faradice.faranet.FaraWebHandler;
 import com.faradice.firmware.Firmware;
 import com.faradice.http.FaraWebApi;
 import com.faradice.http.html.FaraHtml;
-import com.faradice.ocpp.OCPPChargepointAPI;
 import com.faradice.ocpp.OCPPContext;
 import com.faradice.ocpp.OCPPSession;
-import com.faradice.ocpp.chargepoint.direct.DirectOCPPChargePointAPI;
 import com.faradice.ocpp.entities.AuthorizeResponse;
 import com.faradice.ocpp.entities.BootNotificationResult;
 import com.faradice.ocpp.entities.Heartbeat;
@@ -36,16 +34,16 @@ import com.faradice.ocpp.entities.StopTransaction;
 // Test server on digital ocean
 // http://104.236.81.197:8088/Ocpp15WebAppDemo/
 
-public class FaraOccpControlHandler extends FaraWebHandler {
+public class DirectCentralControlHandler extends FaraWebHandler {
 	public static final String name = "/chargepoint";
 
 	private String[] fields = { "host", "port", "Endpoint", "rfid"};
 	private String[] size = { "200", "60", "300","300"};
 	private String[] result = { "http://104.236.81.197","8088","/Ocpp15WebAppDemo/CentralSystemService","04EA6A6AA13780"};
 	private String fromService = "";
-	private OCPPChargepointAPI chargePoint = new DirectOCPPChargePointAPI();
+	private DirectCentralAPI centralService = new DirectCentralAPI();
 
-	public FaraOccpControlHandler() {
+	public DirectCentralControlHandler() {
 		super(name);
 	}
 
@@ -135,7 +133,7 @@ public class FaraOccpControlHandler extends FaraWebHandler {
 			}
 			line = readInputLine();
 		}
-		loadSubPage(FaraOccpControlHandler.name);
+		loadSubPage(DirectCentralControlHandler.name);
 	}
 
 	private void initSession() {
@@ -154,7 +152,7 @@ public class FaraOccpControlHandler extends FaraWebHandler {
 	
 	private void boot() throws IOException {
 		System.out.println("\nBoot notification result");
-		BootNotificationResult br = chargePoint.bootNotification("FD-Firm-Type1-Type2");
+		BootNotificationResult br = centralService.bootNotification("FD-Firm-Type1-Type2");
 		System.out.println("\nBoot Notification");
 		System.out.println(br.currentTime);
 		System.out.println(br.heartbeatInterval);
@@ -163,27 +161,27 @@ public class FaraOccpControlHandler extends FaraWebHandler {
 		fromService += br.currentTime+"<br>";
 		fromService += br.heartbeatInterval+"<br>";
 		fromService += br.status+"<br>";
-		loadSubPage(FaraOccpControlHandler.name);
+		loadSubPage(DirectCentralControlHandler.name);
 	}
 	
 	private void authenticate() throws IOException {
 		System.out.println("<br>Authenticate result<br>");
-		AuthorizeResponse aur = chargePoint.authorize(result[3]);		
+		AuthorizeResponse aur = centralService.authorize(result[3]);		
 		System.out.println(aur.status);
 		fromService = "Authenticate result<br>";
 		fromService += aur.status;
-		loadSubPage(FaraOccpControlHandler.name);
+		loadSubPage(DirectCentralControlHandler.name);
 	}
 
 	private void startTransaction() throws IOException {
-		StartTransactionResult str  =  chargePoint.startTransaction("Faradice1", result[3]);
+		StartTransactionResult str  =  centralService.startTransaction("Faradice1", result[3]);
 		System.out.println("Start Transaction result");
 		System.out.println(str.idTagInfo);
 		System.out.println(str.transactionId);
 		fromService = "<br>Start Transaction result<br>";
 		fromService += str.idTagInfo+"<br>";
 		fromService += str.transactionId+"<br>";
-		loadSubPage(FaraOccpControlHandler.name);
+		loadSubPage(DirectCentralControlHandler.name);
 	}
 
 	private void stopTransaction() throws IOException {
@@ -192,7 +190,7 @@ public class FaraOccpControlHandler extends FaraWebHandler {
 		System.out.println(xmlRes);
 		fromService = "<br>Stop Transaction result<br>";
 		fromService += xmlRes;
-		loadSubPage(FaraOccpControlHandler.name);
+		loadSubPage(DirectCentralControlHandler.name);
 	}
 
 	private void heartbeat() throws IOException {
@@ -201,6 +199,6 @@ public class FaraOccpControlHandler extends FaraWebHandler {
 		System.out.println(xmlRes+"<br>");
 		fromService = "<br>Heartbeat result<br>";
 		fromService += xmlRes;
-		loadSubPage(FaraOccpControlHandler.name);
+		loadSubPage(DirectCentralControlHandler.name);
 	}
 }
