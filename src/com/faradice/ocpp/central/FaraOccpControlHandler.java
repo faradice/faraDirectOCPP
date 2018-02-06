@@ -36,7 +36,7 @@ import com.faradice.ocpp.entities.StopTransaction;
 // Test server on digital ocean
 // http://104.236.81.197:8088/Ocpp15WebAppDemo/
 
-public class FaraOccpHandler extends FaraWebHandler {
+public class FaraOccpControlHandler extends FaraWebHandler {
 	public static final String name = "/chargepoint";
 
 	private String[] fields = { "host", "port", "Endpoint", "rfid"};
@@ -45,7 +45,7 @@ public class FaraOccpHandler extends FaraWebHandler {
 	private String fromService = "";
 	private OCPPChargepointAPI chargePoint = new DirectOCPPChargePointAPI();
 
-	public FaraOccpHandler() {
+	public FaraOccpControlHandler() {
 		super(name);
 	}
 
@@ -135,7 +135,7 @@ public class FaraOccpHandler extends FaraWebHandler {
 			}
 			line = readInputLine();
 		}
-		loadSubPage(FaraOccpHandler.name);
+		loadSubPage(FaraOccpControlHandler.name);
 	}
 
 	private void initSession() {
@@ -163,7 +163,7 @@ public class FaraOccpHandler extends FaraWebHandler {
 		fromService += br.currentTime+"<br>";
 		fromService += br.heartbeatInterval+"<br>";
 		fromService += br.status+"<br>";
-		loadSubPage(FaraOccpHandler.name);
+		loadSubPage(FaraOccpControlHandler.name);
 	}
 	
 	private void authenticate() throws IOException {
@@ -172,7 +172,7 @@ public class FaraOccpHandler extends FaraWebHandler {
 		System.out.println(aur.status);
 		fromService = "Authenticate result<br>";
 		fromService += aur.status;
-		loadSubPage(FaraOccpHandler.name);
+		loadSubPage(FaraOccpControlHandler.name);
 	}
 
 	private void startTransaction() throws IOException {
@@ -183,7 +183,7 @@ public class FaraOccpHandler extends FaraWebHandler {
 		fromService = "<br>Start Transaction result<br>";
 		fromService += str.idTagInfo+"<br>";
 		fromService += str.transactionId+"<br>";
-		loadSubPage(FaraOccpHandler.name);
+		loadSubPage(FaraOccpControlHandler.name);
 	}
 
 	private void stopTransaction() throws IOException {
@@ -192,7 +192,7 @@ public class FaraOccpHandler extends FaraWebHandler {
 		System.out.println(xmlRes);
 		fromService = "<br>Stop Transaction result<br>";
 		fromService += xmlRes;
-		loadSubPage(FaraOccpHandler.name);
+		loadSubPage(FaraOccpControlHandler.name);
 	}
 
 	private void heartbeat() throws IOException {
@@ -201,6 +201,6 @@ public class FaraOccpHandler extends FaraWebHandler {
 		System.out.println(xmlRes+"<br>");
 		fromService = "<br>Heartbeat result<br>";
 		fromService += xmlRes;
-		loadSubPage(FaraOccpHandler.name);
+		loadSubPage(FaraOccpControlHandler.name);
 	}
 }

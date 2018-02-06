@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.faradice.faraUtil.FaraFiles;
 import com.faradice.ocpp.entities.Authorize;
-import com.faradice.ocpp.entities.AuthorizeResponse;
 
 public class OccpSystemService extends HttpServlet {
 
