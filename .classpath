@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="centalservice.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-annotations-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-deploy-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-http-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-io-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-schemas-3.1.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-security-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-server-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-servlet-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-servlets-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-util-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/jetty-xml-9.4.8.v20171121.jar"/>
+	<classpathentry kind="lib" path="/libs/jetty-9.48/servlet-api-3.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/FaraUtilities"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/FaraFirm"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
