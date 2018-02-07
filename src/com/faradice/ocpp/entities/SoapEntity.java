@@ -26,9 +26,8 @@ import sun.net.www.http.PosterOutputStream;
  */ 
 public abstract class SoapEntity {
 	public static final String OCPP_SOAP_TEMPLATE_FOLDER = "soap/";
-	private String soapXMLIn = null;
 
-	public abstract String formatXML();
+	public abstract String formatXML(String xml);
 
 	public String action() {
 		String actionName = this.getClass().getSimpleName();
@@ -42,7 +41,7 @@ public abstract class SoapEntity {
 			if (!actionName.startsWith("/")) {
 				actionName = "/" + actionName;
 			}
-			List<String> commonHead = createSoapRequestHeader();
+			List<String> commonHead = soapHeader();
 			String soapXMLBody = FaraFiles.loadFile(OCPP_SOAP_TEMPLATE_FOLDER + actionName + ".soap");
 			String soapXMLHead = "";
 
@@ -50,7 +49,7 @@ public abstract class SoapEntity {
 				soapXMLHead += line;
 			}
 			int startOfBody = soapXMLHead.indexOf("</soap:Envelope>");
-			soapXMLIn = soapXMLHead.substring(0, startOfBody);
+			String soapXMLIn = soapXMLHead.substring(0, startOfBody);
 			soapXMLIn += soapXMLBody;
 			soapXMLIn += soapXMLHead.substring(startOfBody);
 
@@ -59,7 +58,7 @@ public abstract class SoapEntity {
 			soapXMLIn = soapXMLIn.replaceFirst("%s", actionName);
 			soapXMLIn = soapXMLIn.replaceFirst("%s", UUID.randomUUID().toString());
 			soapXMLIn = soapXMLIn.replaceFirst("%s", OCPPContext.get().wsURL());
-			String soapXMLWithParams = formatXML();
+			String soapXMLWithParams = formatXML(soapXMLIn);
 			System.out.println("REQUEST");
 			System.out.println(soapXMLWithParams);
 
@@ -73,15 +72,7 @@ public abstract class SoapEntity {
 		}
 		return soapXMLOut;
 	}
-
-	public void soapXMLIn(String xml) {
-		this.soapXMLIn = xml;
-	}
 	
-	public String soapXMLIn() {
-		return soapXMLIn;
-	}
-
 	public String executeSoapAction(String action, String soapXML) throws MalformedURLException, IOException {
 		String responseString;
 		String outputString = "";
@@ -100,7 +91,6 @@ public abstract class SoapEntity {
 		httpConn.setRequestProperty("Content-Length", String.valueOf(b.length));
 		httpConn.setRequestMethod("POST");
 		httpConn.setDoOutput(true);
-//		httpConn.setDoInput(true);
 
 		// Write the content of the request to the outputstream of the HTTP Connection.
 		OutputStream out = httpConn.getOutputStream();
@@ -112,8 +102,6 @@ public abstract class SoapEntity {
 			FaraFiles.appendToFile(OCPP_SOAP_TEMPLATE_FOLDER + "log/postContent.log", content, content.length);
 			FaraFiles.appendToFile(OCPP_SOAP_TEMPLATE_FOLDER + "log/postContent.log", "\n");
 		}
-
-		// Ready with sending the request.
 
 		// Read the response.
 		InputStreamReader isr = new InputStreamReader(httpConn.getInputStream());
@@ -128,7 +116,7 @@ public abstract class SoapEntity {
 		return outputString;
 	}
 
-	public static List<String> createSoapRequestHeader() {
+	public List<String> soapHeader() {
 		ArrayList<String> hl = new ArrayList<>();
 		hl.add("<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\">");
 		hl.add("  <soap:Header xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">");
@@ -139,21 +127,6 @@ public abstract class SoapEntity {
 		hl.add("  </soap:Header>");
 		hl.add("</soap:Envelope>");
 		return hl;
-	}
-	
-	public static List<String> createSoapResponseHeader() {
-		ArrayList<String> hl = new ArrayList<>();
-		hl.add("<S:Envelope xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\">");
-	    hl.add("<S:Header>");
-	    hl.add("<Action xmlns=\"http://www.w3.org/2005/08/addressing\" xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" S:mustUnderstand=\"true\">$s");
-	    	hl.add("</Action>");
-	    	hl.add("<MessageID xmlns=\"http://www.w3.org/2005/08/addressing\">$s</MessageID>");
-	    hl.add("<RelatesTo xmlns=\"http://www.w3.org/2005/08/addressing\">$s</RelatesTo>");
-	    	hl.add("<To xmlns=\"http://www.w3.org/2005/08/addressing\">http://www.w3.org/2005/08/addressing/anonymous</To>");
-	    	hl.add("</S:Header>");
-	    	hl.add("</S:Header>");
-	    	hl.add("</S:Envelope>");
-	    	return hl;
 	}
 	
 	private void logSoapCall(String soapXML) {

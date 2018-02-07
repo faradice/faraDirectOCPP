@@ -29,8 +29,8 @@ public class StopTransaction extends SoapEntity {
 	}
 
 	@Override
-	public String formatXML() {
-		String xmlInput = String.format(soapXMLIn(), 
+	public String formatXML(String xml) {
+		String xmlInput = String.format(xml, 
 				transactionId, 
 				idTag, 
 				timestamp, 

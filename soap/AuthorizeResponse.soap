@@ -1,9 +1,9 @@
 <S:Body>
   <authorizeResponse xmlns="urn://Ocpp/Cs/2015/10/">
     <idTagInfo>
-       <status>Accepted</status>
-       <expiryDate>2018-02-06T20:48:49.657Z</expiryDate>
-       <parentIdTag></parentIdTag>
+       <status>$s</status>
+       <expiryDate>$s</expiryDate>
+       <parentIdTag>$s</parentIdTag>
        </idTagInfo>
        </authorizeResponse>
 </S:Body>

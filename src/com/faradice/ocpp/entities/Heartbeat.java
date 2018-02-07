@@ -13,7 +13,7 @@ public class Heartbeat extends SoapEntity {
 	}
 
 	@Override
-	public String formatXML() {
-		return soapXMLIn();
+	public String formatXML(String xml) {
+		return xml;
 	}
 }

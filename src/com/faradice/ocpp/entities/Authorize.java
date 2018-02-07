@@ -13,15 +13,14 @@ public class Authorize extends SoapEntity {
 	}
 
 	@Override
-	public String formatXML() {
-		String xmlInput = String.format(soapXMLIn(), idTag);
+	public String formatXML(String xml) {
+		String xmlInput = String.format(xml, idTag);
 		return xmlInput;
 	}
 	
 	public static Authorize buildFromXML(String xml) {
 		String idTag = SoapParsing.valueOf(xml,"idTag");
 		Authorize au = new Authorize(idTag);
-		au.soapXMLIn(xml);
 		return au;
 	}	
 }
