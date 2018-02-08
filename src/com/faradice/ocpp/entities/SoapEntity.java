@@ -26,6 +26,8 @@ import sun.net.www.http.PosterOutputStream;
  */ 
 public abstract class SoapEntity {
 	public static final String OCPP_SOAP_TEMPLATE_FOLDER = "soap/";
+	public String messageId;
+
 
 	public abstract String formatXML(String xml);
 
@@ -52,11 +54,12 @@ public abstract class SoapEntity {
 			String soapXMLIn = soapXMLHead.substring(0, startOfBody);
 			soapXMLIn += soapXMLBody;
 			soapXMLIn += soapXMLHead.substring(startOfBody);
-
+			
 			// Inject action name first three common varables
+			messageId = UUID.randomUUID().toString();
 			soapXMLIn = soapXMLIn.replaceFirst("%s", OCPPContext.get().cpid);
 			soapXMLIn = soapXMLIn.replaceFirst("%s", actionName);
-			soapXMLIn = soapXMLIn.replaceFirst("%s", UUID.randomUUID().toString());
+			soapXMLIn = soapXMLIn.replaceFirst("%s", messageId);
 			soapXMLIn = soapXMLIn.replaceFirst("%s", OCPPContext.get().wsURL());
 			String soapXMLWithParams = formatXML(soapXMLIn);
 			System.out.println("REQUEST");

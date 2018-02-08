@@ -2,6 +2,7 @@ package com.faradice.ocpp.central;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.faradice.faraUtil.FaraDates;
 import com.faradice.faraUtil.FaraFiles;
 import com.faradice.ocpp.entities.Authorize;
+import com.faradice.ocpp.entities.AuthorizeResponse;
 
 public class DirectCentralService extends HttpServlet {
 
@@ -59,14 +62,21 @@ public class DirectCentralService extends HttpServlet {
 		}
 	}
 
+	
 	String authorizeResponse(String soapAuthorizeReq) {
 		Authorize au = Authorize.buildFromXML(soapAuthorizeReq);
-		// AuthorizeResult aur = new AuthorizeResult(status, expiryDate, parentId)
-		String res = "";
+		String status = AuthorizeResponse.ACCEPTED;
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.roll(GregorianCalendar.DAY_OF_WEEK, 1);
+		String expiryDate = FaraDates.xmlGregorian(gc).toString();
+		AuthorizeResponse aur = new AuthorizeResponse(status, expiryDate, "Parent", au.messageId);
+		return aur.toXML();
+
+/*		
 		res += "<?xml version='1.0' encoding='UTF-8'?>" + "<S:Envelope xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\">" + "<S:Header>" + "<Action xmlns=\"http://www.w3.org/2005/08/addressing\" xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" S:mustUnderstand=\"false\">/AuthorizeResponse"
 				+ "</Action>" + "<MessageID xmlns=\"http://www.w3.org/2005/08/addressing\">uuid:b4bbf0c0-0598-428c-af75-6e83a81a74fd</MessageID>" + "<RelatesTo xmlns=\"http://www.w3.org/2005/08/addressing\">uuid:f61ad85b-0745-4397-b0f2-e793f4ae5e18</RelatesTo>"
 				+ "<To xmlns=\"http://www.w3.org/2005/08/addressing\">http://www.w3.org/2005/08/addressing/anonymous</To>" + "</S:Header>" + "<S:Body>" + "<authorizeResponse xmlns=\"urn://Ocpp/Cs/2015/10/\">" + "<idTagInfo>" + "<status>Accepted</status>"
 				+ "<expiryDate>2018-02-05T14:54:20.107Z</expiryDate>" + "<parentIdTag>Parent</parentIdTag>" + "</idTagInfo>" + "</authorizeResponse>" + "</S:Body><" + "/S:Envelope>";
-		return res;
+*/
 	}
 }

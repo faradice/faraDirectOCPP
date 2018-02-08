@@ -11,7 +11,8 @@ public class AuthorizeResponse extends SoapResponseEntity {
 	public final String expiryDate;
 	public final String parentIdTag;
 
-	public AuthorizeResponse(String status, String expiryDate, String parentId) {
+	public AuthorizeResponse(String status, String expiryDate, String parentId, String relatesTo) {
+		this.messageId = relatesTo;
 		this.status = status;
 		this.expiryDate = expiryDate;
 		this.parentIdTag = parentId;
@@ -21,7 +22,8 @@ public class AuthorizeResponse extends SoapResponseEntity {
 		String status = SoapParsing.valueOf(xml, "status");
 		String expDate = SoapParsing.valueOf(xml, "expiryDate");
 		String parentId = SoapParsing.valueOf(xml, "parentIdTag");
-		return new AuthorizeResponse(status, expDate, parentId);
+		String messageId = SoapParsing.valueOf(xml, "RelatesTo");
+		return new AuthorizeResponse(status, expDate, parentId, messageId);
 	}
 
 	@Override

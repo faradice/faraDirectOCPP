@@ -7,7 +7,6 @@ import java.util.UUID;
 import com.faradice.faraUtil.FaraFiles;
 
 public abstract class SoapResponseEntity extends SoapEntity {
-	public String relatesTo;
 
 	public String toXML() {
 		String actionName = action();
@@ -23,7 +22,7 @@ public abstract class SoapResponseEntity extends SoapEntity {
 		// Inject common header varables
 		soapXMLHead = soapXMLHead.replaceFirst("%s", actionName);
 		soapXMLHead = soapXMLHead.replaceFirst("%s", UUID.randomUUID().toString());
-		soapXMLHead = soapXMLHead.replaceFirst("%s", relatesTo);
+		soapXMLHead = soapXMLHead.replaceFirst("%s", messageId);
 		
 		int startOfBody = soapXMLHead.indexOf("</soap:Envelope>");
 		soapXMLHead = soapXMLHead.substring(0, startOfBody);
