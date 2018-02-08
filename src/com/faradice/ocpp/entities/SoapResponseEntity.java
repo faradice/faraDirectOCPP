@@ -43,7 +43,6 @@ public abstract class SoapResponseEntity extends SoapEntity {
 	    hl.add("<RelatesTo xmlns=\"http://www.w3.org/2005/08/addressing\">$s</RelatesTo>");
 	    	hl.add("<To xmlns=\"http://www.w3.org/2005/08/addressing\">http://www.w3.org/2005/08/addressing/anonymous</To>");
 	    	hl.add("</S:Header>");
-	    	hl.add("</S:Header>");
 	    	hl.add("</S:Envelope>");
 	    	return hl;
 	}

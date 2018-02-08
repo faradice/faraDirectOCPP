@@ -68,12 +68,12 @@ public class UnitTest {
 	public static void main(String[] args)  {
 		UnitTest ut = new UnitTest();
 //		OCPPContext.set(OCPPSession.buildLocal8079());
-//		OCPPContext.set(OCPPSession.buildDirect8085());
-		OCPPContext.set(OCPPSession.build16());
+		OCPPContext.set(OCPPSession.buildDirect8085());
+//		OCPPContext.set(OCPPSessionbuild16());
 //		ut.testAuthorize();
 		
-//		ut.testAuthorizeOutput();
-		ut.testBootNotification();
+		ut.testAuthorizeOutput();
+	//	ut.testBootNotification();
 	//	ut.testStartTransaction();	
 	//	ut.testStopTransaction(); 
 	//	ut.testHeartbeat(); 
