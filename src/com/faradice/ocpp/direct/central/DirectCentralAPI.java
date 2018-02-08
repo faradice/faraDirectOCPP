@@ -1,15 +1,15 @@
-package com.faradice.ocpp.central;
+package com.faradice.ocpp.direct.central;
 
-import com.faradice.ocpp.entities.Authorize;
-import com.faradice.ocpp.entities.AuthorizeResponse;
-import com.faradice.ocpp.entities.BootNotification;
-import com.faradice.ocpp.entities.BootNotificationResult;
-import com.faradice.ocpp.entities.Heartbeat;
-import com.faradice.ocpp.entities.HeartbeatResult;
-import com.faradice.ocpp.entities.StartTransaction;
-import com.faradice.ocpp.entities.StartTransactionResult;
-import com.faradice.ocpp.entities.StopTransaction;
-import com.faradice.ocpp.entities.StopTransactionResult;
+import com.faradice.ocpp.direct.entities.Authorize;
+import com.faradice.ocpp.direct.entities.AuthorizeResponse;
+import com.faradice.ocpp.direct.entities.BootNotification;
+import com.faradice.ocpp.direct.entities.BootNotificationResult;
+import com.faradice.ocpp.direct.entities.Heartbeat;
+import com.faradice.ocpp.direct.entities.HeartbeatResult;
+import com.faradice.ocpp.direct.entities.StartTransaction;
+import com.faradice.ocpp.direct.entities.StartTransactionResult;
+import com.faradice.ocpp.direct.entities.StopTransaction;
+import com.faradice.ocpp.direct.entities.StopTransactionResult;
 
 public class DirectCentralAPI {
 	public AuthorizeResponse authorize(String rfid) {

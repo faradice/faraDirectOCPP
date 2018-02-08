@@ -1,4 +1,4 @@
-package com.faradice.ocpp.entities;
+package com.faradice.ocpp.direct.entities;
 
 public class BootNotification extends SoapEntity {
 	public final String cpvendor = "Faradice1";

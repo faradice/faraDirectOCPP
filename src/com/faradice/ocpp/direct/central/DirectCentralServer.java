@@ -11,7 +11,7 @@
  * with Faradice.
  *================================================================================
  */
-package com.faradice.ocpp.central;
+package com.faradice.ocpp.direct.central;
 
 import com.faradice.faranet.FaraJettyServer;
 

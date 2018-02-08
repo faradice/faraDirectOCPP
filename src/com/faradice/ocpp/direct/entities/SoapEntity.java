@@ -1,4 +1,4 @@
-package com.faradice.ocpp.entities;
+package com.faradice.ocpp.direct.entities;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -16,7 +16,7 @@ import java.util.UUID;
 import com.faradice.faraUtil.FaraDates;
 import com.faradice.faraUtil.FaraFiles;
 import com.faradice.faraUtil.Log;
-import com.faradice.ocpp.OCPPContext;
+import com.faradice.ocpp.direct.OCPPContext;
 
 import sun.net.www.http.PosterOutputStream;
 

@@ -1,4 +1,4 @@
-package com.faradice.ocpp;
+package com.faradice.ocpp.direct;
 
 import java.security.InvalidParameterException;
 import java.util.List;

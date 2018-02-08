@@ -1,4 +1,4 @@
-package com.faradice.ocpp.entities;
+package com.faradice.ocpp.direct.entities;
 
 import com.faradice.faraUtil.FaraUtil;
 

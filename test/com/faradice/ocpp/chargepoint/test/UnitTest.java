@@ -1,14 +1,15 @@
 package com.faradice.ocpp.chargepoint.test;
+
 import com.faradice.faraUtil.FaraDates;
-import com.faradice.ocpp.OCPPContext;
-import com.faradice.ocpp.OCPPSession;
-import com.faradice.ocpp.central.DirectCentralAPI;
-import com.faradice.ocpp.entities.Authorize;
-import com.faradice.ocpp.entities.AuthorizeResponse;
-import com.faradice.ocpp.entities.BootNotificationResult;
-import com.faradice.ocpp.entities.Heartbeat;
-import com.faradice.ocpp.entities.StartTransactionResult;
-import com.faradice.ocpp.entities.StopTransaction;
+import com.faradice.ocpp.direct.OCPPContext;
+import com.faradice.ocpp.direct.OCPPSession;
+import com.faradice.ocpp.direct.central.DirectCentralAPI;
+import com.faradice.ocpp.direct.entities.Authorize;
+import com.faradice.ocpp.direct.entities.AuthorizeResponse;
+import com.faradice.ocpp.direct.entities.BootNotificationResult;
+import com.faradice.ocpp.direct.entities.Heartbeat;
+import com.faradice.ocpp.direct.entities.StartTransactionResult;
+import com.faradice.ocpp.direct.entities.StopTransaction;
 
 /*
  *  Check out jaxb for marshalling

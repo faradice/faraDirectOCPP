@@ -1,4 +1,4 @@
-package com.faradice.ocpp;
+package com.faradice.ocpp.direct;
 
 public class OCPPContext {
 	private static OCPPSession session = null;

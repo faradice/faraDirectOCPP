@@ -1,4 +1,4 @@
-package com.faradice.ocpp.central;
+package com.faradice.ocpp.direct.central;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.faradice.faraUtil.FaraDates;
 import com.faradice.faraUtil.FaraFiles;
-import com.faradice.ocpp.entities.Authorize;
-import com.faradice.ocpp.entities.AuthorizeResponse;
+import com.faradice.ocpp.direct.entities.Authorize;
+import com.faradice.ocpp.direct.entities.AuthorizeResponse;
 
 public class DirectCentralService extends HttpServlet {
 

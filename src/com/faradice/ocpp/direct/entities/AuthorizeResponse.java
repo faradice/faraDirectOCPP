@@ -1,4 +1,4 @@
-package com.faradice.ocpp.entities;
+package com.faradice.ocpp.direct.entities;
 
 public class AuthorizeResponse extends SoapResponseEntity {
 	public static final String ACCEPTED = "Accepted";

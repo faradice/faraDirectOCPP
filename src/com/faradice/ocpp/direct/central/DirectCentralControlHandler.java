@@ -11,7 +11,7 @@
  * with Faradice.
  *================================================================================
  */
-package com.faradice.ocpp.central;
+package com.faradice.ocpp.direct.central;
 
 import java.io.IOException;
 
@@ -23,13 +23,13 @@ import com.faradice.faranet.FaraWebHandler;
 import com.faradice.firmware.Firmware;
 import com.faradice.http.FaraWebApi;
 import com.faradice.http.html.FaraHtml;
-import com.faradice.ocpp.OCPPContext;
-import com.faradice.ocpp.OCPPSession;
-import com.faradice.ocpp.entities.AuthorizeResponse;
-import com.faradice.ocpp.entities.BootNotificationResult;
-import com.faradice.ocpp.entities.Heartbeat;
-import com.faradice.ocpp.entities.StartTransactionResult;
-import com.faradice.ocpp.entities.StopTransaction;
+import com.faradice.ocpp.direct.OCPPContext;
+import com.faradice.ocpp.direct.OCPPSession;
+import com.faradice.ocpp.direct.entities.AuthorizeResponse;
+import com.faradice.ocpp.direct.entities.BootNotificationResult;
+import com.faradice.ocpp.direct.entities.Heartbeat;
+import com.faradice.ocpp.direct.entities.StartTransactionResult;
+import com.faradice.ocpp.direct.entities.StopTransaction;
 
 // Test server on digital ocean
 // http://104.236.81.197:8088/Ocpp15WebAppDemo/
