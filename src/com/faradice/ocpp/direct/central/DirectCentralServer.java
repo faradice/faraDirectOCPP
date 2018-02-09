@@ -16,6 +16,10 @@ package com.faradice.ocpp.direct.central;
 import com.faradice.faranet.FaraJettyServer;
 
 /**
+ * Skoða þennan betur.  Virðist góður
+ * https://www.javaworld.com/article/3215966/java-language/web-services-in-java-se-part-2-creating-soap-web-services.html
+ * 
+ * 
  * FaraOCPP Central server using SOAP protocol
  */
 public class DirectCentralServer {

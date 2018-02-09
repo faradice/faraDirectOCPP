@@ -1,21 +1,38 @@
 package com.faradice.ocpp.direct.entities;
 
+import java.io.StringReader;
+
+import javax.xml.bind.JAXB;
+
 public class SoapParsing {
 
 	public static String valueOf(String xml, String key) {
+		String xmlLow = xml.toLowerCase();
+		String keyLow = key.toLowerCase();
 		String value = "";
-		String lookup = "<"+key+">";
-		int startOfSearch = xml.indexOf(":Body");
-		if (startOfSearch < 0) startOfSearch = 1;
-		int startOfKey = xml.indexOf(lookup, startOfSearch);
+		int startOfSearch = xmlLow.indexOf(":envelope");
+		String lookup = "<" + keyLow;
+		int startOfKey = xmlLow.indexOf(lookup, startOfSearch);
+		if (startOfKey < startOfSearch) {
+			lookup = ":" + keyLow;
+			startOfKey = xmlLow.indexOf(lookup, startOfSearch);
+		}
 		if (startOfKey > startOfSearch) {
-			int startOfValue = startOfKey + lookup.length();
-			int endOfValue = xml.indexOf("</", startOfValue);
-			if (endOfValue > startOfValue) {
-				value = xml.substring(startOfValue, endOfValue);
+			int startOfValue = xml.indexOf(">");
+			if (startOfValue > 0) {
+				startOfValue++;
+				int endOfValue = xml.indexOf("</", startOfValue);
+				if (endOfValue > startOfValue) {
+					value = xml.substring(startOfValue, endOfValue);
+				}
 			}
-		}		
+		}
 		return value;
 	}
-	
+
+	public static <T> T toObject(String xml, Class<? extends T> type) {
+		T instance = JAXB.unmarshal(new StringReader(xml), type);
+		return instance;
+	}
+
 }

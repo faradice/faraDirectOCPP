@@ -12,6 +12,10 @@ import com.faradice.ocpp.direct.entities.StartTransactionResult;
 import com.faradice.ocpp.direct.entities.StopTransaction;
 
 /*
+ * Skoða þennan betur.  Virðist góður
+ * https://www.javaworld.com/article/3215966/java-language/web-services-in-java-se-part-2-creating-soap-web-services.html
+
+ * 
  *  Check out jaxb for marshalling
  *  https://docs.oracle.com/javase/tutorial/jaxb/intro/
  */

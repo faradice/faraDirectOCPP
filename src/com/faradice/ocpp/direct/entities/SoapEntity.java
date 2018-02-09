@@ -50,7 +50,7 @@ public abstract class SoapEntity {
 			for (String line : commonHead) {
 				soapXMLHead += line;
 			}
-			int startOfBody = soapXMLHead.indexOf("</soap:Envelope>");
+			int startOfBody = soapXMLHead.toLowerCase().indexOf(":envelope");
 			String soapXMLIn = soapXMLHead.substring(0, startOfBody);
 			soapXMLIn += soapXMLBody;
 			soapXMLIn += soapXMLHead.substring(startOfBody);
