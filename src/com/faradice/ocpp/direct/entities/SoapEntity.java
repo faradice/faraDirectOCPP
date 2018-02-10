@@ -50,7 +50,7 @@ public abstract class SoapEntity {
 			for (String line : commonHead) {
 				soapXMLHead += line;
 			}
-			int startOfBody = soapXMLHead.toLowerCase().indexOf(":envelope");
+			int startOfBody = soapXMLHead.indexOf("</soap:Envelope>");
 			String soapXMLIn = soapXMLHead.substring(0, startOfBody);
 			soapXMLIn += soapXMLBody;
 			soapXMLIn += soapXMLHead.substring(startOfBody);
@@ -62,13 +62,9 @@ public abstract class SoapEntity {
 			soapXMLIn = soapXMLIn.replaceFirst("%s", messageId);
 			soapXMLIn = soapXMLIn.replaceFirst("%s", OCPPContext.get().wsURL());
 			String soapXMLWithParams = formatXML(soapXMLIn);
-			System.out.println("REQUEST");
-			System.out.println(soapXMLWithParams);
 
 			logSoapCall(soapXMLWithParams);
 			soapXMLOut = executeSoapAction(actionName, soapXMLWithParams);
-			System.out.println("RESULT");
-			System.out.println(soapXMLOut);
 			logSoapResult(soapXMLOut);
 		} catch (Exception ex) {
 			Log.error("Action " + action() + " error.", ex);

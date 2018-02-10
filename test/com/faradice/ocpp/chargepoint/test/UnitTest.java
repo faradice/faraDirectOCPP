@@ -23,7 +23,7 @@ public class UnitTest {
 	DirectCentralAPI chargePoint = new DirectCentralAPI();
 
 	public void testAuthorizeOutput()  {
-		String res = Authorize.call("04EA6A6AA13780");
+		String res = Authorize.call("RaggaTag");
 		System.out.println(res);
 	}
 
@@ -75,9 +75,9 @@ public class UnitTest {
 //		OCPPContext.set(OCPPSession.buildLocal8079());
 		OCPPContext.set(OCPPSession.buildDirect8085());
 //		OCPPContext.set(OCPPSessionbuild16());
-//		ut.testAuthorize();
+		ut.testAuthorize();
 		
-		ut.testAuthorizeOutput();
+//		ut.testAuthorizeOutput();
 	//	ut.testBootNotification();
 	//	ut.testStartTransaction();	
 	//	ut.testStopTransaction(); 

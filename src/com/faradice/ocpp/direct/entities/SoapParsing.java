@@ -18,7 +18,7 @@ public class SoapParsing {
 			startOfKey = xmlLow.indexOf(lookup, startOfSearch);
 		}
 		if (startOfKey > startOfSearch) {
-			int startOfValue = xml.indexOf(">");
+			int startOfValue = xml.indexOf(">", startOfKey);
 			if (startOfValue > 0) {
 				startOfValue++;
 				int endOfValue = xml.indexOf("</", startOfValue);
