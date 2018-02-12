@@ -1,5 +1,7 @@
 package com.faradice.ocpp.chargepoint.test;
 
+import java.util.UUID;
+
 import com.faradice.faraUtil.FaraDates;
 import com.faradice.ocpp.direct.OCPPContext;
 import com.faradice.ocpp.direct.OCPPSession;
@@ -8,6 +10,7 @@ import com.faradice.ocpp.direct.entities.Authorize;
 import com.faradice.ocpp.direct.entities.AuthorizeResponse;
 import com.faradice.ocpp.direct.entities.BootNotificationResult;
 import com.faradice.ocpp.direct.entities.Heartbeat;
+import com.faradice.ocpp.direct.entities.SoapEntity;
 import com.faradice.ocpp.direct.entities.StartTransactionResult;
 import com.faradice.ocpp.direct.entities.StopTransaction;
 
@@ -69,13 +72,38 @@ public class UnitTest {
 */
 	}
 
+	public void executeDirect() {
+		String actionName = "/Authorize";
+		String s = ""; 
+		s += "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\"> "; 
+		s += "  <soap:Header xmlns:wsa=\"http://www.w3.org/2005/08/addressing\"> ";
+		s += "    <ns:chargeBoxIdentity>Faradice1</ns:chargeBoxIdentity> ";
+		s += "    <wsa:Action soap:mustUnderstand=\"1\">/Authorize</wsa:Action> ";
+		s += "    <wsa:MessageID>uuid:"+UUID.randomUUID().toString()+"</wsa:MessageID> ";
+		s += "    <wsa:To>http://104.236.81.197:8088/cs_ocpp16/CentralSystemService</wsa:To> ";
+        s += "  </soap:Header>"; 
+        s += "  <soap:Body>\n"; 
+        s += "    <ns:authorizeRequest>\n"; 
+        s += "        <ns:idTag>Raggi</ns:idTag>\n"; 
+        s += "    </ns:authorizeRequest>\n"; 
+		s += "  </soap:Body>\n";
+		s += "</soap:Envelope> ";
+        try {
+			String result = SoapEntity.executeSoapAction(actionName, s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+		
 	
 	public static void main(String[] args)  {
 		UnitTest ut = new UnitTest();
 //		OCPPContext.set(OCPPSession.buildLocal8079());
-		OCPPContext.set(OCPPSession.buildDirect8085());
-//		OCPPContext.set(OCPPSessionbuild16());
-		ut.testAuthorize();
+//		OCPPContext.set(OCPPSession.buildDirect8085());
+//		OCPPContext.set(OCPPSession.build15());
+		OCPPContext.set(OCPPSession.build16());
+//		ut.testAuthorize();
+		ut.executeDirect();
 		
 //		ut.testAuthorizeOutput();
 	//	ut.testBootNotification();

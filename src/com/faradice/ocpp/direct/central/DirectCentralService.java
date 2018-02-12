@@ -49,8 +49,6 @@ public class DirectCentralService extends HttpServlet {
 			while ((line = reader.readLine()) != null) {
 				soapInputContent += line;
 			}
-//			System.out.println(soapInputContent);
-
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("application/soap+xml");
 			response.getWriter().println(authorizeResponse(soapInputContent));
@@ -62,14 +60,18 @@ public class DirectCentralService extends HttpServlet {
 		}
 	}
 
-	
 	String authorizeResponse(String soapAuthorizeReq) {
+		System.out.println("build Response from req:");
+		System.out.println(soapAuthorizeReq);
 		Authorize au = Authorize.buildFromXML(soapAuthorizeReq);
 		String status = AuthorizeResponse.ACCEPTED;
 		GregorianCalendar gc = new GregorianCalendar();
 		gc.roll(GregorianCalendar.DATE, 1);
 		String expiryDate = FaraDates.xmlGregorian(gc).toString();
 		AuthorizeResponse aur = new AuthorizeResponse(status, expiryDate, "ResaultParent", au.messageId);
-		return aur.toXML();
+		String s = aur.toXML();
+		System.out.println("Result:");
+		System.out.println(s);
+		return s;
 	}
 }

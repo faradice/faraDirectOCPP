@@ -23,11 +23,10 @@ import sun.net.www.http.PosterOutputStream;
 /*
  * Check out this lib to convert SOAP to JSON https://github.com/stleary/JSON-java
  * 
- */ 
+ */
 public abstract class SoapEntity {
 	public static final String OCPP_SOAP_TEMPLATE_FOLDER = "soap/";
 	public String messageId;
-
 
 	public abstract String formatXML(String xml);
 
@@ -71,8 +70,11 @@ public abstract class SoapEntity {
 		}
 		return soapXMLOut;
 	}
-	
-	public String executeSoapAction(String action, String soapXML) throws MalformedURLException, IOException {
+
+	public static String executeSoapAction(String action, String soapXML) throws MalformedURLException, IOException {
+		System.out.println("REQUEST");
+		System.out.println(action);
+		System.out.println(soapXML);
 		String responseString;
 		String outputString = "";
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -112,9 +114,25 @@ public abstract class SoapEntity {
 		}
 		isr.close();
 		out.close();
+		System.out.println("RESULT");
+		System.out.println(outputString);
 		return outputString;
 	}
 
+	public List<String> soapHeaderORG() {
+		ArrayList<String> hl = new ArrayList<>();
+		hl.add("<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\">");
+		hl.add("  <soap:Header xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">");
+		hl.add("    <ns:chargeBoxIdentity>%s</ns:chargeBoxIdentity>");
+		hl.add("    <wsa:Action soap:mustUnderstand=\"1\">%s</wsa:Action>");
+		hl.add("    <wsa:MessageID>uuid:%s</wsa:MessageID>");
+		hl.add("    <wsa:To>%s</wsa:To>");
+		hl.add("  </soap:Header>");
+		hl.add("</soap:Envelope>");
+		return hl;
+	}
+
+	
 	public List<String> soapHeader() {
 		ArrayList<String> hl = new ArrayList<>();
 		hl.add("<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\">");
@@ -128,6 +146,23 @@ public abstract class SoapEntity {
 		return hl;
 	}
 	
+	
+	public String authorizeFullReq() {
+		String s = "";
+		s += "<S:Envelope xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2015/10/\">";
+		s += "<env:Header>";
+		s += "<ns:chargeBoxIdentity>Faradice1</ns:chargeBoxIdentity>";
+		s += "Action xmlns=\\\"wsa\\\" env:mustUnderstand=\\\"true\\\">/Authorize</Action>";
+		s += "</env:Header>";
+		s += "";
+		s += "";
+		s += "";
+		s += "";
+		s += "";
+		s += "</S:Envelope>";
+		return s;
+	}
+
 	private void logSoapCall(String soapXML) {
 		String log = FaraDates.getDateTimeNow() + " Action: " + action();
 		log = log + "Calling \naction: " + action() + "\n";
