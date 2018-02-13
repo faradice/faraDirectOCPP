@@ -36,7 +36,7 @@ public abstract class SoapResponseEntity extends SoapEntity {
 		ArrayList<String> hl = new ArrayList<>();
 		hl.add("<S:Envelope xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\">");
 	    hl.add("  <S:Header>");
-	    hl.add("    <Action xmlns=\"http://www.w3.org/2005/08/addressing\" xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" S:mustUnderstand=\"true\">%s");
+	    hl.add("    <Action xmlns=\"http://www.w3.org/2005/08/addressing\" xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" S:mustUnderstand=\"false\">%s");
 	    	hl.add("    </Action>");
 	    	hl.add("      <MessageID xmlns=\"http://www.w3.org/2005/08/addressing\">%s</MessageID>");
 	    hl.add("      <RelatesTo xmlns=\"http://www.w3.org/2005/08/addressing\">%s</RelatesTo>");

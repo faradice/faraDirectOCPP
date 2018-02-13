@@ -22,7 +22,7 @@ import com.faradice.ocpp.direct.entities.StopTransaction;
  *  Check out jaxb for marshalling
  *  https://docs.oracle.com/javase/tutorial/jaxb/intro/
  */
-public class UnitTest {
+public class DirectSoapUnitTest {
 	DirectCentralAPI chargePoint = new DirectCentralAPI();
 
 	public void testAuthorizeOutput()  {
@@ -72,7 +72,7 @@ public class UnitTest {
 */
 	}
 
-	public void executeDirect() {
+	public void executeDirectOK() {
 		String actionName = "/Authorize";
 		String s = ""; 
 		s += "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\"> "; 
@@ -95,9 +95,57 @@ public class UnitTest {
 		}
 	}
 		
+	public void executeDirectNOTW() {
+		String actionName = "/Authorize";
+		String s = ""; 
+		s += "<S:Envelope xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2015/10/\">";
+		s += "  <env:Header>";
+		s += "    <ns:chargeBoxIdentity>Faradice1</ns:chargeBoxIdentity>";
+		s += "    <wsa:Action soap:mustUnderstand=\"true\">/Authorize</wsa:Action> ";
+//		s += "    <Action xmlns=\"wsa\" env:mustUnderstand=\"true\">/Authorize</Action>";
+		s += "    <wsa:MessageID>uuid:"+UUID.randomUUID().toString()+"</wsa:MessageID> ";
+		s += "  </env:Header>";
+		s += "  <S:Body>";
+		s += "    <authorizeRequest xmlns=\"urn://Ocpp/Cs/2015/10/\">";
+		s += "      <idTag>1234</idTag>";
+		s += "    </authorizeRequest>";
+		s += "  </S:Body>";
+		s += "</S:Envelope>";
+        try {
+			String result = SoapEntity.executeSoapAction(actionName, s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void executeDirect() {
+		String actionName = "/Authorize";
+		String s = ""; 
+		s += "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\"> "; 
+		s += "  <soap:Header xmlns:wsa=\"http://www.w3.org/2005/08/addressing\"> ";
+		s += "    <ns:chargeBoxIdentity>Faradice1</ns:chargeBoxIdentity> ";
+		s += "    <wsa:Action soap:mustUnderstand=\"true\">/Authorize</wsa:Action> ";
+//		s += "    <Action xmlns=\"wsa\" env:mustUnderstand=\"true\">/Authorize</Action>";
+		s += "    <wsa:MessageID>uuid:"+UUID.randomUUID().toString()+"</wsa:MessageID> ";
+		s += "    <wsa:To>http://104.236.81.197:8088/cs_ocpp16/CentralSystemService</wsa:To> ";
+        s += "  </soap:Header>"; 
+        s += "  <soap:Body>"; 
+//        s += "    <ns:authorizeRequest>"; 
+		s += "    <ns:authorizeRequest>";
+        s += "      <ns:idTag>Raggi</ns:idTag>"; 
+        s += "    </ns:authorizeRequest>"; 
+		s += "  </soap:Body>";
+		s += "</soap:Envelope>";
+        try {
+			String result = SoapEntity.executeSoapAction(actionName, s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	public static void main(String[] args)  {
-		UnitTest ut = new UnitTest();
+		DirectSoapUnitTest ut = new DirectSoapUnitTest();
 //		OCPPContext.set(OCPPSession.buildLocal8079());
 //		OCPPContext.set(OCPPSession.buildDirect8085());
 //		OCPPContext.set(OCPPSession.build15());

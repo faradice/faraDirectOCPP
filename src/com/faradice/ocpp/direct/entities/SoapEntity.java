@@ -146,23 +146,6 @@ public abstract class SoapEntity {
 		return hl;
 	}
 	
-	
-	public String authorizeFullReq() {
-		String s = "";
-		s += "<S:Envelope xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:env=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2015/10/\">";
-		s += "<env:Header>";
-		s += "<ns:chargeBoxIdentity>Faradice1</ns:chargeBoxIdentity>";
-		s += "Action xmlns=\\\"wsa\\\" env:mustUnderstand=\\\"true\\\">/Authorize</Action>";
-		s += "</env:Header>";
-		s += "";
-		s += "";
-		s += "";
-		s += "";
-		s += "";
-		s += "</S:Envelope>";
-		return s;
-	}
-
 	private void logSoapCall(String soapXML) {
 		String log = FaraDates.getDateTimeNow() + " Action: " + action();
 		log = log + "Calling \naction: " + action() + "\n";

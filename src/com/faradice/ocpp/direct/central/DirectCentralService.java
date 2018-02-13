@@ -2,6 +2,7 @@ package com.faradice.ocpp.direct.central;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -25,14 +26,25 @@ public class DirectCentralService extends HttpServlet {
 		try {
 			String servletPath = request.getServletPath();
 			String contextPath = request.getContextPath();
+			String query = request.getQueryString();
 			System.out.println("pathInfo:" + servletPath);
 			System.out.println("contextPath:" + contextPath);
+			System.out.println("Req URI:" + request.getRequestURL());
+			System.out.println("Query:" + query);
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("text/xml;charset=UTF-8");
-			List<String> rows = FaraFiles.loadRows("wsdl/OCPP_CentralSystemService_1.6.wsdl");
-			for (String row : rows) {
-				response.getWriter().println(row);
+			boolean isWSDLQuery = (servletPath.endsWith("CentralSystemService") && query.equalsIgnoreCase("wsdl"));
+			String output = "";
+			if (isWSDLQuery) {
+				List<String> rows = FaraFiles.loadRows("wsdl/OCPP_CentralSystemService_1.6.wsdl");
+				for (String row : rows) {
+					response.getWriter().println(row);
+					output+=row+"\n";
+				}
 			}
+			System.out.println("GET RESULT:");
+			int len = (output.length() > 100) ? 99 : output.length();
+			System.out.println(output.substring(0, len)+"...");
 		} catch (Exception ex) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		} finally {
@@ -49,6 +61,10 @@ public class DirectCentralService extends HttpServlet {
 			while ((line = reader.readLine()) != null) {
 				soapInputContent += line;
 			}
+			System.out.println("Got POST:");
+			System.out.println(soapInputContent);
+			
+			// Just create the Authorize response class for initial testing
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentType("application/soap+xml");
 			response.getWriter().println(authorizeResponse(soapInputContent));
@@ -61,7 +77,7 @@ public class DirectCentralService extends HttpServlet {
 	}
 
 	String authorizeResponse(String soapAuthorizeReq) {
-		System.out.println("build Response from req:");
+		System.out.println("Auhorize Request:");
 		System.out.println(soapAuthorizeReq);
 		Authorize au = Authorize.buildFromXML(soapAuthorizeReq);
 		String status = AuthorizeResponse.ACCEPTED;
