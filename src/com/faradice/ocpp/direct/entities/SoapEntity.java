@@ -85,7 +85,8 @@ public abstract class SoapEntity {
 		URL url = new URL(OCPPContext.get().wsURL());
 		URLConnection connection = url.openConnection();
 		HttpURLConnection httpConn = (HttpURLConnection) connection;
-		String contentType = String.format("application/soap+xml;charset=UTF-8;action=\"%s\"", action);
+//		String contentType = String.format("application/soap+xml;charset=UTF-8;action=\"%s\"", action);
+		String contentType = String.format("application/soap+text/xml;charset=UTF-8;action=\"%s\"", action);
 		httpConn.setRequestProperty("Content-Type", contentType);
 		httpConn.setRequestProperty("Host", OCPPContext.get().hostWithPort());
 		httpConn.setRequestProperty("Accept-Encoding", "gzip,deflate");

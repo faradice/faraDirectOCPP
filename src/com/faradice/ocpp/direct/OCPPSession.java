@@ -27,6 +27,11 @@ public class OCPPSession {
 		return new OCPPSession("http://104.236.81.197", 8088, "/Ocpp15WebAppDemo/CentralSystemService","Faradice1");
 	}
 
+	public static OCPPSession buildLocal15() {
+		return new OCPPSession("http://localhost", 8080, "/Ocpp15WebAppDemo/CentralSystemService","Faradice1");
+	}
+
+	
 	public static OCPPSession build16() {
 		return new OCPPSession("http://104.236.81.197", 8088, "/cs_ocpp16/CentralSystemService","Faradice1");
 	}

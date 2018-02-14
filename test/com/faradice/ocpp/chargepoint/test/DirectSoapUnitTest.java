@@ -120,17 +120,17 @@ public class DirectSoapUnitTest {
 
 	public void executeDirect() {
 		String actionName = "/Authorize";
-		String s = ""; 
-		s += "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\"> "; 
+		String s = "";
+		http://schemas.xmlsoap.org/soap/envelope
+//		s += "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\"> "; 
+		s += "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\"> "; 
 		s += "  <soap:Header xmlns:wsa=\"http://www.w3.org/2005/08/addressing\"> ";
 		s += "    <ns:chargeBoxIdentity>Faradice1</ns:chargeBoxIdentity> ";
-		s += "    <wsa:Action soap:mustUnderstand=\"true\">/Authorize</wsa:Action> ";
-//		s += "    <Action xmlns=\"wsa\" env:mustUnderstand=\"true\">/Authorize</Action>";
+		s += "    <wsa:Action soap:mustUnderstand=\"false\">/Authorize</wsa:Action> ";
 		s += "    <wsa:MessageID>uuid:"+UUID.randomUUID().toString()+"</wsa:MessageID> ";
 		s += "    <wsa:To>http://104.236.81.197:8088/cs_ocpp16/CentralSystemService</wsa:To> ";
         s += "  </soap:Header>"; 
         s += "  <soap:Body>"; 
-//        s += "    <ns:authorizeRequest>"; 
 		s += "    <ns:authorizeRequest>";
         s += "      <ns:idTag>Raggi</ns:idTag>"; 
         s += "    </ns:authorizeRequest>"; 
@@ -143,13 +143,36 @@ public class DirectSoapUnitTest {
 		}
 	}
 
+	public void executeDirectBAD() {
+		String actionName = "/Authorize";
+		String s = ""; 
+		s += "<S:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:ns=\"urn://Ocpp/Cs/2012/06/\"> "; 
+		s += "  <S:Header xmlns:wsa=\"http://www.w3.org/2005/08/addressing\"> ";
+		s += "    <ns:chargeBoxIdentity>Faradice1</ns:chargeBoxIdentity> ";
+		s += "    <wsa:Action soap:mustUnderstand=\"true\">/Authorize</wsa:Action> ";
+		s += "    <wsa:MessageID>uuid:"+UUID.randomUUID().toString()+"</wsa:MessageID> ";
+		s += "    <wsa:To>http://104.236.81.197:8088/cs_ocpp16/CentralSystemService</wsa:To> ";
+        s += "  </S:Header>"; 
+        s += "  <S:Body>"; 
+		s += "    <ns:authorizeRequest>";
+        s += "      <ns:idTag>Raggi</ns:idTag>"; 
+        s += "    </ns:authorizeRequest>"; 
+		s += "  </S:Body>";
+		s += "</S:Envelope>";
+        try {
+			String result = SoapEntity.executeSoapAction(actionName, s);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	public static void main(String[] args)  {
 		DirectSoapUnitTest ut = new DirectSoapUnitTest();
-//		OCPPContext.set(OCPPSession.buildLocal8079());
+		OCPPContext.set(OCPPSession.buildLocal8079());
 //		OCPPContext.set(OCPPSession.buildDirect8085());
 //		OCPPContext.set(OCPPSession.build15());
-		OCPPContext.set(OCPPSession.build16());
+//		OCPPContext.set(OCPPSession.buildLocal15());
 //		ut.testAuthorize();
 		ut.executeDirect();
 		
