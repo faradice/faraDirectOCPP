@@ -1,1 +1,0 @@
- wsimport -keep -s src -clientjar occpservice.jar OCPP_CentralSystemService_1.6.wsdl 
