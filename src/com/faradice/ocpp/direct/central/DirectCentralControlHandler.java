@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.faradice.commands.FaraWebApi;
 import com.faradice.faraUtil.FaraDates;
+import com.faradice.faraUtil.FaraUtil;
 import com.faradice.faranet.FaraHttp;
 import com.faradice.faranet.FaraWebHandler;
 import com.faradice.firmware.Firmware;
@@ -61,7 +62,7 @@ public class DirectCentralControlHandler extends FaraWebHandler {
 		output.println(FaraHtml.seperator() + "<p>");
 		output.println("Faradice " + Firmware.VERSION + "<p>");
 		output.println("<br>");
-		output.println("<b>OCCP Central Configuration " + FaraHttp.hostName() + " &nbsp Imax is now " + FaraWebApi.readMaxAmpValue() + "</b><p>");
+		output.println("<b>OCCP Central Configuration " + FaraHttp.hostName() + " &nbsp Imax is now " + FaraUtil.maxI() + "</b><p>");
 		output.println("<form method=\"post\">");
 		for (int i = 0; i < fields.length; i++) {
 			if (i == 0) {
