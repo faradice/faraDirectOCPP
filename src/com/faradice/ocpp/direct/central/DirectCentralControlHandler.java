@@ -18,13 +18,12 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
-import com.faradice.commands.FaraWebApi;
 import com.faradice.faraUtil.FaraDates;
 import com.faradice.faraUtil.FaraUtil;
+import com.faradice.faranet.FaraHtml;
 import com.faradice.faranet.FaraHttp;
 import com.faradice.faranet.FaraWebHandler;
 import com.faradice.firmware.Firmware;
-import com.faradice.http.html.FaraHtml;
 import com.faradice.ocpp.direct.OCPPContext;
 import com.faradice.ocpp.direct.OCPPSession;
 import com.faradice.ocpp.direct.entities.AuthorizeResponse;
