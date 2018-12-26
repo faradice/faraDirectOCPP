@@ -18,6 +18,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
+import com.faradice.faraUtil.FaraConfig;
 import com.faradice.faraUtil.FaraDates;
 import com.faradice.faraUtil.FaraUtil;
 import com.faradice.faranet.FaraHtml;
@@ -61,7 +62,7 @@ public class DirectCentralControlHandler extends FaraWebHandler {
 		output.println(FaraHtml.seperator() + "<p>");
 		output.println("Faradice " + Firmware.VERSION + "<p>");
 		output.println("<br>");
-		output.println("<b>OCCP Central Configuration " + FaraHttp.hostName() + " &nbsp Imax is now " + FaraUtil.maxI() + "</b><p>");
+		output.println("<b>OCCP Central Configuration " + FaraHttp.hostName() + " &nbsp Imax is now " + FaraConfig.maxI() + "</b><p>");
 		output.println("<form method=\"post\">");
 		for (int i = 0; i < fields.length; i++) {
 			if (i == 0) {
